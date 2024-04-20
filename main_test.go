@@ -9,7 +9,17 @@ import (
 // TEST_DRIVERS: sqlite, mysql, postgres, sqlserver
 
 func TestGORM(t *testing.T) {
-	user := User{Name: "jinzhu"}
+	languages := []Language{
+		{Code: "ZH", Name: "Chinese"},
+		{Code: "EN", Name: "English"},
+		{Code: "DE", Name: "German"},
+	}
+	DB.Create(&languages)
+
+	user := User{Name: "jinzhu", Languages: []Language{
+		{Code: "ZH"},
+		{Code: "EN"},
+	}}
 
 	DB.Create(&user)
 

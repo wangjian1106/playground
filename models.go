@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"errors"
 	"time"
 
 	"gorm.io/gorm"
@@ -57,4 +58,11 @@ type Company struct {
 type Language struct {
 	Code string `gorm:"primarykey"`
 	Name string
+}
+
+func (language Language) BeforeSave(tx *gorm.DB) (err error) {
+	if language.Name == "" {
+		return errors.New("name can't be empty")
+	}
+	return
 }
